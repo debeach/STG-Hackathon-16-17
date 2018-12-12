@@ -12,35 +12,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.stg.danbeach.practice.framework.page.MainMenuPartial;
+
 public class Browser {
 	private static WebDriver driver;
 
-	/**
-	 * Will click any link on the current page for the given link text.
-	 * 
-	 * @param linkText the text in a link to be clicked.
-	 */
-	public static void clickHeaderLinkByText(final String linkText) {  
-		List<WebElement> links = driver.findElement(By.className("HeaderMain-nav")).findElements(By.linkText(linkText.toUpperCase()));
-		System.out.println("number of links " + links.size());
-		System.out.println("BrowserPage " + linkText);
-		System.out.println("text is " + links.get(0).getText());
-		links.get(0).click(); // open drop down
-		// TODO: THE SECOND CLICK KILLS THE STORIES TEST. MAY HAVE TO ACCOUNT FOR IT WITH AN IF.
-		links.get(0).click(); // click link
-		System.out.println("AFTER BOTH CLICKS");
-//		for(WebElement element: links) {
-//			System.out.println(element.getText().trim());
-//		}
-		
-		
-		//		Actions action = new Actions(driver);
-//		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-////		WebElement menuLink = driver.findElement(By.linkText(linkText));
-//		WebElement menuLink = driver.findElement(By.xpath("//a[@title='" + linkText + "']"));
-//		action.moveToElement(menuLink).click();
-		
-//		menuLink.click();
+	public static WebDriver getDriver() {
+		return driver;
 	}
 
 	/**
@@ -51,6 +29,21 @@ public class Browser {
 	}
 
 	/**
+	 * Finds all elements on a page that are associated with the given class name.
+	 * 
+	 * @param className the class name that may be associated with elements
+	 * @return a List of WebElements that are associated with the given class name.
+	 */
+	public static List<WebElement> findElementsByClassName(final String className) {
+		return driver.findElements(By.className(className)); 
+	}
+	
+	public static List<WebElement> findElementsByLinkText(final String linkText){
+		return driver.findElements(By.linkText(linkText));
+	}
+	
+
+	/**
 	 * Navigate to the URL page requested.
 	 * 
 	 * @param url the URL page requested.
@@ -59,7 +52,6 @@ public class Browser {
 		driver.get(url);
 	}
 
-	
 	/**
 	 * Set what WebDriver you need for the test.
 	 * 
