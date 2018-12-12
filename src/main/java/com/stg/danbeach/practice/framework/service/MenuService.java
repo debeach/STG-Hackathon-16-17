@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import com.stg.danbeach.practice.framework.browser.Browser;
 import com.stg.danbeach.practice.framework.page.DealsPage;
 import com.stg.danbeach.practice.framework.page.ExplorePage;
+import com.stg.danbeach.practice.framework.page.LodgingPage;
 import com.stg.danbeach.practice.framework.page.PassesPage;
 import com.stg.danbeach.practice.framework.page.PlanTripPage;
 import com.stg.danbeach.practice.framework.page.SnowPage;
@@ -22,8 +23,9 @@ public class MenuService {
 	 * @return the main navigation menu.
 	 */
 	public static WebElement findMainNavMenu() {
-		List<WebElement> elements = Browser.findElementsByClassName("HeaderMain-nav");
-		return elements.get(0);
+		return Browser.findElementsByClassName("HeaderMain-nav").get(0);
+//		List<WebElement> elements = Browser.findElementsByClassName("HeaderMain-nav");
+//		return elements.get(0);
 	}
 
 	/**
@@ -34,7 +36,7 @@ public class MenuService {
 	 */
 	public static WebElement findMainNavMenuLinkByLinkText(final String linkText) {
 		WebElement element = MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(linkText)));
-		element.click();
+//		element.click();
 		return element;
 	}
 
@@ -47,9 +49,14 @@ public class MenuService {
 	 *                     navigation menu link.
 	 * @return the sub-link in the main menu link.
 	 */
-	public static List<WebElement> findSubNavMenuByLinkText(final String mainMenuLink, final String subMenuText) {
+	public static WebElement findSubNavMenuByLinkText(final String mainMenuLink, final String subMenuText) {
+		System.out.println("sub menu " + subMenuText);
 		WebElement mainLink = MenuService.findMainNavMenuLinkByLinkText(mainMenuLink);
-		return mainLink.findElements(By.linkText(subMenuText));
+		System.out.println("Sub menu text " + mainLink.getText());
+		System.out.println("new name is " + findPageMenuName(subMenuText));
+		WebElement subLink = mainLink.findElement(By.linkText("Lodging"));  // findPageMenuName(subMenuText)
+		System.out.println("Sub menu text 2 " + subLink);
+		return subLink;
 	}
 
 	/**
@@ -69,8 +76,9 @@ public class MenuService {
 	 * @param subLink    the sub-menu to be clicked.
 	 */
 	public static void clickSubHeaderLinkByText(final String headerLink, final String subLink) {
-		List<WebElement> subMenus = MenuService.findSubNavMenuByLinkText(headerLink, subLink);
-		subMenus.get(0).click();
+		MenuService.findSubNavMenuByLinkText(headerLink, subLink).click();
+//		List<WebElement> subMenus = MenuService.findSubNavMenuByLinkText(headerLink, subLink);
+//		subMenus.get(0).click();
 
 	}
 
@@ -104,9 +112,31 @@ public class MenuService {
 	 * @param subMenuPageName the name of the sub-menu to be tested.
 	 */
 	public static void navigateToSubMenu(final String menuPageName, final String subMenuPageName) {
-		String linkText = findPageMenuName(menuPageName);
-		MenuService.hoverOnListMenu(linkText);
-		MenuService.clickSubHeaderLinkByText(menuPageName, subMenuPageName);
+//		String linkText = findPageMenuName(menuPageName);
+//		MenuService.clickSubHeaderLinkByText(menuPageName, subMenuPageName);
+//		System.out.println(subMenuPageName);
+		
+		MenuService.hoverOnListMenu(menuPageName);
+		System.out.println(MenuService.findMainNavMenu()
+				.findElement(By.linkText(findPageMenuName(menuPageName)))
+				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+				.findElement(By.linkText(subMenuPageName)).getText());
+		System.out.println(MenuService.findMainNavMenu()
+				.findElement(By.linkText(findPageMenuName(menuPageName)))
+				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+				.findElement(By.linkText(subMenuPageName)).getTagName());
+		
+		MenuService.findMainNavMenu()
+		.findElement(By.linkText(findPageMenuName(menuPageName)))
+		.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+		.findElement(By.linkText(subMenuPageName)).click();
+		
+//		 MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(menuPageName))).click();
+//		 MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(subMenuPageName))).click();
+//		
+		 
+//		 MenuService.findSubNavMenuByLinkText(menuPageName, subMenuPageName);
+//		MenuService.clickSubHeaderLinkByText(menuPageName, subMenuPageName);
 	}
 	
 	
@@ -129,6 +159,9 @@ public class MenuService {
 			break;
 		case "Explore":
 			linkText = ExplorePage.pageLinkText;
+			break;
+		case "Lodging" :
+			linkText = LodgingPage.pageLinkText;
 			break;
 		case "Passes":
 			linkText = PassesPage.pageLinkText;

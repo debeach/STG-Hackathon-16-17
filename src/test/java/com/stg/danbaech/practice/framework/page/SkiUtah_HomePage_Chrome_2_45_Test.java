@@ -14,6 +14,7 @@ import com.stg.danbeach.practice.framework.browser.Browser;
 import com.stg.danbeach.practice.framework.browser.BrowserEnum;
 import com.stg.danbeach.practice.framework.page.DealsPage;
 import com.stg.danbeach.practice.framework.page.ExplorePage;
+import com.stg.danbeach.practice.framework.page.LodgingPage;
 import com.stg.danbeach.practice.framework.page.PassesPage;
 import com.stg.danbeach.practice.framework.page.PlanTripPage;
 import com.stg.danbeach.practice.framework.page.SnowPage;
@@ -36,7 +37,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 
 	@AfterClass
 	public static void tearDownTests() {
-		Browser.close();
+//		Browser.close();
 	}
 	///////////////////////////////////////////// 
 	
@@ -44,7 +45,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 	/**
 	 * Test if I can get to the Home Page for Ski Utah.
 	 */
-//	@Ignore
+	@Ignore
 	@Test
 	public void goToHomePage_Test() {
 		PageService.homePage().goTo();
@@ -55,14 +56,14 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 	 * This test will compare only a portion of the Home Page title. The portion
 	 * that is compared is the first "Ski Utah" which should not change.
 	 */
-//	@Ignore
+	@Ignore
 	@Test
 	public void isAtIdTitle_Test() {
 		PageService.homePage().goTo();
 		assertTrue(PageService.homePage().isIdTitle());
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void navigateTo_Deals_Test() {
 		PageService.homePage().goTo();
@@ -72,7 +73,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 		assertTrue(PageService.dealsPage().isAt());
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void navigateTo_Explore_Test() {
 		PageService.homePage().goTo();
@@ -81,7 +82,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 		assertTrue(PageService.explorePage().isAt());
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void navigateTo_Passes_Test() {
 		PageService.homePage().goTo();
@@ -90,6 +91,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 		assertTrue(PageService.passesPage().isAt());
 	}
 
+	@Ignore
 	@Test
 	public void navigateTo_PlanYourTrip_Test() {
 		PageService.homePage().goTo();
@@ -102,7 +104,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 	@Test
 	public void navigateTo_PlanYourTrip_Lodging_Test() {
 		PageService.homePage().goTo();
-		
+		PageService.homePage().navigateToSubMenu(PlanTripPage.pageName, LodgingPage.pageName);
 	}
 
 	// TODO: CURRENTLY BROKEN

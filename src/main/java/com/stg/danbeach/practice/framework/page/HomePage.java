@@ -15,23 +15,33 @@ public class HomePage implements iPage {
 	private static final String idTitle = "Ski Utah";
 	private static final String url = "http://www.skiutah.com";
 
+	@Override
 	public void goTo() {
 		Browser.goTo(url);
 	}
 
+	@Override
 	public boolean isAt() {
 		return title.equals(Browser.title());
 	}
 
+	@Override
 	public boolean isIdTitle() {
 		return Browser.title().trim().indexOf(idTitle) > -1;
 	}
 	////////////////////////////////////////////
 
+	/**
+	 * Navigates to a link in the main menu from the home page.
+	 * 
+	 * @param linkText the main menu link to be clicked.
+	 */
 	public void navigateToListMenu(final String linkText) {
 		MenuService.navigateToListMenu(linkText);
 	}
 	
-	
-	
+	public  void navigateToSubMenu(final String mainMenuLink, final String subMenuLink) {
+		MenuService.navigateToSubMenu(mainMenuLink, subMenuLink);
+	}
+
 }
