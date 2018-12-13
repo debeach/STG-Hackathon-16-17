@@ -37,6 +37,10 @@ public class Browser {
 		return driver.findElements(By.className(className)); 
 	}
 	
+	public static WebElement findElementById(final String id) {
+		return driver.findElement(By.id(id));
+	}
+	
 	public static List<WebElement> findElementsByLinkText(final String linkText){
 		return driver.findElements(By.linkText(linkText));
 	}

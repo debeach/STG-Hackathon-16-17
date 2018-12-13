@@ -19,6 +19,7 @@ import com.stg.danbeach.practice.framework.page.PassesPage;
 import com.stg.danbeach.practice.framework.page.PlanTripPage;
 import com.stg.danbeach.practice.framework.page.SnowPage;
 import com.stg.danbeach.practice.framework.page.StoriesPage;
+import com.stg.danbeach.practice.framework.service.v1.HomePageServiceV1;
 import com.stg.danbeach.practice.framework.service.v1.PageServiceV1;
 
 public class SkiUtah_HomePage_Chrome_2_45_Test {
@@ -37,7 +38,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 
 	@AfterClass
 	public static void tearDownTests() {
-		Browser.close();
+//		Browser.close();
 	}
 	///////////////////////////////////////////// 
 	
@@ -45,6 +46,7 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 	/**
 	 * Test if I can get to the Home Page for Ski Utah.
 	 */
+	@Ignore
 	@Test
 	public void goToHomePage_HP_Test() {
 		PageServiceV1.homePage().goTo();
@@ -55,11 +57,18 @@ public class SkiUtah_HomePage_Chrome_2_45_Test {
 	 * This test will compare only a portion of the Home Page title. The portion
 	 * that is compared is the first "Ski Utah" which should not change.
 	 */
+	@Ignore
 	@Test
 	public void isAtIdTitle_HP_Test() {
 		PageServiceV1.homePage().goTo();
 		assertTrue(PageServiceV1.homePage().isIdTitle());
 	}
 
+	@Test
+	public void milesFromAirportToResort_Test() {
+		PageServiceV1.homePage().goTo();
+		
+		PageServiceV1.homePage().navigateToMilesToAirport();
+	}
 	
 }

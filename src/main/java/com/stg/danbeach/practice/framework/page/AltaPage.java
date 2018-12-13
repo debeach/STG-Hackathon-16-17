@@ -5,6 +5,7 @@ import com.stg.danbeach.practice.framework.browser.Browser;
 public class AltaPage implements iPage {
 
 	public static final String pageName = "Alta";
+	public static final String resortName = "Alta";
 	private static final String title = "Alta Ski Resort - Map, Weather & Information - Ski Utah";
 	private static final String idTitle = "Alta Ski Resort";
 	private static final String url = "https://www.skiutah.com/members/alta?_ct=Menu+Bar";
