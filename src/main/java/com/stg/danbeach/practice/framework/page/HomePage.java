@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.stg.danbeach.practice.framework.browser.Browser;
-import com.stg.danbeach.practice.framework.service.MenuService;
+import com.stg.danbeach.practice.framework.service.v1.MenuServiceV1;
 
 public class HomePage implements iPage {
 
@@ -37,11 +37,11 @@ public class HomePage implements iPage {
 	 * @param linkText the main menu link to be clicked.
 	 */
 	public void navigateToListMenu(final String linkText) {
-		MenuService.navigateToListMenu(linkText);
+		MenuServiceV1.navigateToListMenu(linkText);
 	}
 	
 	public  void navigateToSubMenu(final String mainMenuLink, final String subMenuLink) {
-		MenuService.navigateToSubMenu(mainMenuLink, subMenuLink);
+		MenuServiceV1.navigateToSubMenu(mainMenuLink, subMenuLink);
 	}
 
 }

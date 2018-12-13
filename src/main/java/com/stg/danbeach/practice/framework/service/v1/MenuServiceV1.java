@@ -1,4 +1,4 @@
-package com.stg.danbeach.practice.framework.service;
+package com.stg.danbeach.practice.framework.service.v1;
 
 import java.util.List;
 
@@ -15,7 +15,26 @@ import com.stg.danbeach.practice.framework.page.PlanTripPage;
 import com.stg.danbeach.practice.framework.page.SnowPage;
 import com.stg.danbeach.practice.framework.page.StoriesPage;
 
-public class MenuService {
+public class MenuServiceV1 {
+	
+	/**
+	 * Will click any link on the current page for the given link text.
+	 * 
+	 * @param linkText the text in a link to be clicked.
+	 */
+	public static void clickHeaderLinkByText(final String linkText) {
+		MenuServiceV1.findMainNavMenuLinkByText(linkText).click();
+	}
+	
+	/**
+	 * Clicks a sub-menu that is found in the main menu link.
+	 * 
+	 * @param headerLink the main menu link that may contain the sub-menu link.
+	 * @param subLink    the sub-menu to be clicked.
+	 */
+//	public static void clickSubHeaderLinkByText(final String headerLink, final String subLink) {
+//		MenuServiceV1.findSubNavMenuLinkByText(headerLink, subLink).click();
+//	}
 	
 	/**
 	 * Finds the main navigation menu that is shared by all pages.
@@ -24,8 +43,6 @@ public class MenuService {
 	 */
 	public static WebElement findMainNavMenu() {
 		return Browser.findElementsByClassName("HeaderMain-nav").get(0);
-//		List<WebElement> elements = Browser.findElementsByClassName("HeaderMain-nav");
-//		return elements.get(0);
 	}
 
 	/**
@@ -34,12 +51,17 @@ public class MenuService {
 	 * @param linkText the name of the main menu link you want to find.
 	 * @return the main menu link from main menu.
 	 */
-	public static WebElement findMainNavMenuLinkByLinkText(final String linkText) {
-		WebElement element = MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(linkText)));
-//		element.click();
-		return element;
+	public static WebElement findMainNavMenuLinkByText(final String linkText) {
+		return MenuServiceV1.findMainNavMenu().findElement(By.linkText(findPageMenuName(linkText)));
 	}
-
+	
+	public static WebElement findSubMenuLinkByText(final String menuLinkText, final String subMenuLinkText) {
+		return MenuServiceV1.findMainNavMenu()
+		.findElement(By.linkText(findPageMenuName(menuLinkText)))
+		.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+		.findElement(By.linkText(subMenuLinkText));
+	}
+	
 	/**
 	 * Finds a sub-link to a main menu link on the main naviagtion menu.
 	 * 
@@ -49,46 +71,23 @@ public class MenuService {
 	 *                     navigation menu link.
 	 * @return the sub-link in the main menu link.
 	 */
-	public static WebElement findSubNavMenuByLinkText(final String mainMenuLink, final String subMenuText) {
-		System.out.println("sub menu " + subMenuText);
-		WebElement mainLink = MenuService.findMainNavMenuLinkByLinkText(mainMenuLink);
-		System.out.println("Sub menu text " + mainLink.getText());
-		System.out.println("new name is " + findPageMenuName(subMenuText));
-		WebElement subLink = mainLink.findElement(By.linkText("Lodging"));  // findPageMenuName(subMenuText)
-		System.out.println("Sub menu text 2 " + subLink);
-		return subLink;
-	}
-
-	/**
-	 * Will click any link on the current page for the given link text.
-	 * 
-	 * @param linkText the text in a link to be clicked.
-	 */
-	public static void clickHeaderLinkByText(final String linkText) {
-		WebElement link = MenuService.findMainNavMenuLinkByLinkText(linkText);
-		link.click(); // click link
-	}
-
-	/**
-	 * Clicks a sub-menu that is found in the main menu link.
-	 * 
-	 * @param headerLink the main menu link that may contain the sub-menu link.
-	 * @param subLink    the sub-menu to be clicked.
-	 */
-	public static void clickSubHeaderLinkByText(final String headerLink, final String subLink) {
-		MenuService.findSubNavMenuByLinkText(headerLink, subLink).click();
-//		List<WebElement> subMenus = MenuService.findSubNavMenuByLinkText(headerLink, subLink);
-//		subMenus.get(0).click();
-
-	}
-
+//	public static WebElement findSubNavMenuLinkByText(final String mainMenuLink, final String subMenuText) {
+//		System.out.println("sub menu " + subMenuText);
+//		WebElement mainLink = MenuServiceV1.findMainNavMenuLinkByText(mainMenuLink);
+//		System.out.println("Sub menu text " + mainLink.getText());
+//		System.out.println("new name is " + findPageMenuName(subMenuText));
+//		WebElement subLink = mainLink.findElement(By.linkText("Lodging"));  // findPageMenuName(subMenuText)
+//		System.out.println("Sub menu text 2 " + subLink);
+//		return subLink;
+//	}
+	
 	/**
 	 * Hovers the mouse over a main menu link.
 	 * 
 	 * @param linkText the main menu link to be hovered upon.
 	 */
-	public static void hoverOnListMenu(final String linkText) {
-		WebElement link = MenuService.findMainNavMenuLinkByLinkText(linkText);
+	public static void hoverMainMenuLink(final String linkText) {
+		WebElement link = MenuServiceV1.findMainNavMenuLinkByText(linkText);
 		Actions action = new Actions(Browser.getDriver());
 		action.moveToElement(link).click().build().perform(); 
 	}
@@ -102,34 +101,35 @@ public class MenuService {
 	 *                     class variable.
 	 */
 	public static void navigateToListMenu(final String menuPageName) {
-		MenuService.hoverOnListMenu(menuPageName);
-		MenuService.clickHeaderLinkByText(menuPageName);
+		MenuServiceV1.hoverMainMenuLink(menuPageName);
+		MenuServiceV1.clickHeaderLinkByText(menuPageName);
 	}
 
 	/**
 	 * Navigates to a sub-menu within the main navigation menu. 
-	 * @param menuPageName the link in the main menu that contains the sub- menu.
-	 * @param subMenuPageName the name of the sub-menu to be tested.
+	 * @param menuLinkText the link in the main menu that contains the sub- menu.
+	 * @param subMenuLinkText the name of the sub-menu to be tested.
 	 */
-	public static void navigateToSubMenu(final String menuPageName, final String subMenuPageName) {
+	public static void navigateToSubMenu(final String menuLinkText, final String subMenuLinkText) {
 //		String linkText = findPageMenuName(menuPageName);
 //		MenuService.clickSubHeaderLinkByText(menuPageName, subMenuPageName);
 //		System.out.println(subMenuPageName);
 		
-		MenuService.hoverOnListMenu(menuPageName);
-		System.out.println(MenuService.findMainNavMenu()
-				.findElement(By.linkText(findPageMenuName(menuPageName)))
-				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
-				.findElement(By.linkText(subMenuPageName)).getText());
-		System.out.println(MenuService.findMainNavMenu()
-				.findElement(By.linkText(findPageMenuName(menuPageName)))
-				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
-				.findElement(By.linkText(subMenuPageName)).getTagName());
+		MenuServiceV1.hoverMainMenuLink(menuLinkText);
+//		System.out.println(MenuServiceV1.findMainNavMenu()
+//				.findElement(By.linkText(findPageMenuName(menuLinkText)))
+//				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+//				.findElement(By.linkText(subMenuLinkText)).getText());
+//		System.out.println(MenuServiceV1.findMainNavMenu()
+//				.findElement(By.linkText(findPageMenuName(menuLinkText)))
+//				.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+//				.findElement(By.linkText(subMenuLinkText)).getTagName());
+		findSubMenuLinkByText(menuLinkText, subMenuLinkText).click();
 		
-		MenuService.findMainNavMenu()
-		.findElement(By.linkText(findPageMenuName(menuPageName)))
-		.findElement(By.xpath("..")).findElement(By.tagName("ul"))
-		.findElement(By.linkText(subMenuPageName)).click();
+//		MenuServiceV1.findMainNavMenu()
+//		.findElement(By.linkText(findPageMenuName(menuPageName)))
+//		.findElement(By.xpath("..")).findElement(By.tagName("ul"))
+//		.findElement(By.linkText(subMenuPageName)).click();
 		
 //		 MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(menuPageName))).click();
 //		 MenuService.findMainNavMenu().findElement(By.linkText(findPageMenuName(subMenuPageName))).click();
