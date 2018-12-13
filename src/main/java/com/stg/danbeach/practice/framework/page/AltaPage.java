@@ -2,13 +2,14 @@ package com.stg.danbeach.practice.framework.page;
 
 import com.stg.danbeach.practice.framework.browser.Browser;
 
-public class DealsPage implements iPage {
-	
-	public static final String pageName = "Deals";
-	private static final String title = "Utah Ski Trip Deals, Discounts and Packages - Ski Utah";
-	private static final String idTitle = "Utah Ski Trip Deals";
-	private static final String url = "https://skiutah.com/deals-serarch";
+public class AltaPage implements iPage {
 
+	public static final String pageName = "Alta";
+	private static final String title = "Alta Ski Resort - Map, Weather & Information - Ski Utah";
+	private static final String idTitle = "Alta Ski Resort";
+	private static final String url = "https://www.skiutah.com/members/alta?_ct=Menu+Bar";
+	
+	
 	@Override
 	public void goTo() {
 		Browser.goTo(url);
@@ -23,6 +24,5 @@ public class DealsPage implements iPage {
 	public boolean isIdTitle() {
 		return Browser.title().indexOf(idTitle) > -1;
 	}
-	
-	
+
 }

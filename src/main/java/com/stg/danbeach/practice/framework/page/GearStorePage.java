@@ -2,12 +2,12 @@ package com.stg.danbeach.practice.framework.page;
 
 import com.stg.danbeach.practice.framework.browser.Browser;
 
-public class ExplorePage implements iPage {
+public class GearStorePage implements iPage {
 
-	public static final String pageName = "Explore";
-	private static final String title = "Utah Ski Areas 101 - Utah Ski Resort Info - Ski Utah";
-	private static final String idTitle = "Utah Ski Areas 101";
-	private static final String url = "https://www.skiutah.com/explore/utah-regions-101";
+	public static final String pageName = "Gear Store";
+	private static final String title = "Ski Utah Gear Store | Utah Ski Gear | Utah Ski Resorts - Ski Utah";
+	private static final String idTitle = "Ski Utah Gear Store";
+	private static final String url = "https://www.skiutah.com/gearstore/products";
 	
 	@Override
 	public void goTo() {

@@ -4,7 +4,6 @@ import com.stg.danbeach.practice.framework.browser.Browser;
 
 public class LodgingPage implements iPage {
 
-	public static final String pageLinkText = "LODGING";
 	public static final String pageName = "Lodging";
 	private static final String title = "Lodging and Accommodations Near Utah Ski Resorts - Ski Utah";
 	private static final String idTitle = "Lodging and Accommodations";

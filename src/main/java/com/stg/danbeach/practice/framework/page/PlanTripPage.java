@@ -4,8 +4,7 @@ import com.stg.danbeach.practice.framework.browser.Browser;
 
 public class PlanTripPage implements iPage {
 
-	public static final String pageLinkText = "PLAN YOUR TRIP";
-	public static final String pageName = "PlanTrip";
+	public static final String pageName = "Plan Your Trip";
 	private static final String title = "Utah Ski Trip Planner - Resorts, Lodging & Activities Ski Utah";
 	private static final String idTitle = "Utah Ski Trip Planner";
 	private static final String url = "https://www.skiutah.com/trip-planner";

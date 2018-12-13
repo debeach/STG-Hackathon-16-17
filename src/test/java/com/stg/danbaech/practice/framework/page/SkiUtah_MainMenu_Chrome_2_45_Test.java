@@ -11,8 +11,12 @@ import org.junit.Test;
 
 import com.stg.danbeach.practice.framework.browser.Browser;
 import com.stg.danbeach.practice.framework.browser.BrowserEnum;
+import com.stg.danbeach.practice.framework.page.AllDealsPage;
+import com.stg.danbeach.practice.framework.page.AltaPage;
 import com.stg.danbeach.practice.framework.page.DealsPage;
 import com.stg.danbeach.practice.framework.page.ExplorePage;
+import com.stg.danbeach.practice.framework.page.GearStorePage;
+import com.stg.danbeach.practice.framework.page.GradePassportPage;
 import com.stg.danbeach.practice.framework.page.LodgingPage;
 import com.stg.danbeach.practice.framework.page.PassesPage;
 import com.stg.danbeach.practice.framework.page.PlanTripPage;
@@ -48,8 +52,17 @@ public class SkiUtah_MainMenu_Chrome_2_45_Test {
 		PageServiceV1.homePage().goTo();
 
 		PageServiceV1.homePage().navigateToListMenu(DealsPage.pageName);
-//		assertTrue(PageService.dealsPage().isIdTitle());
 		assertTrue(PageServiceV1.dealsPage().isAt());
+	}
+	
+	
+	//////////////////////////////////////////////  TEST DEALS -> ALL DEALS SUB MENU LINK
+	@Test
+	public void navigateTo_Deals_AllDeals_HP_Test() {
+		PageServiceV1.homePage().goTo();
+		
+		PageServiceV1.homePage().navigateToSubMenu(DealsPage.pageName, AllDealsPage.pageName);
+		assertTrue(PageServiceV1.allDealsPage().isAt());
 	}
 	
 	
@@ -64,6 +77,14 @@ public class SkiUtah_MainMenu_Chrome_2_45_Test {
 		assertTrue(PageServiceV1.explorePage().isAt());
 	}
 
+	///////////////////////////////////////////  TEST EXPLORE -> GEAR STORE SUB MENU LINK
+	@Test
+	public void navigateTo_Explore_GearStore_HP_Test() {
+		PageServiceV1.homePage().goTo();
+		
+		PageServiceV1.homePage().navigateToSubMenu(ExplorePage.pageName, GearStorePage.pageName);
+		assertTrue(PageServiceV1.gearStorePage().isAt());
+	}
 	
 	/////////////////////////////////////////////  TEST PASSES MAIN MENU LINK
 //	@Ignore
@@ -74,6 +95,16 @@ public class SkiUtah_MainMenu_Chrome_2_45_Test {
 		PageServiceV1.homePage().navigateToListMenu(PassesPage.pageName);
 		assertTrue(PageServiceV1.passesPage().isAt());
 	}
+	
+	
+	//////////////////////////////////////////////////  TEST PASSES -> GRADE PASSPORT SUB MENU LINK
+	@Test
+	public void navigateTo_Passes_GradePassport_HP_Test() {
+		PageServiceV1.homePage().goTo();
+		
+		PageServiceV1.homePage().navigateToSubMenu(PassesPage.pageName, GradePassportPage.pageName);
+		assertTrue(PageServiceV1.gradePassportPage().isAt());
+	}
 
 	/////////////////////////////////////////////  TEST PLAN YOUR TRIP MAIN MENU LINK
 //	@Ignore
@@ -82,44 +113,49 @@ public class SkiUtah_MainMenu_Chrome_2_45_Test {
 		PageServiceV1.homePage().goTo();
 
 		PageServiceV1.homePage().navigateToListMenu(PlanTripPage.pageName);
-//		assertTrue(PageService.planTripPage().isAt());
 		assertTrue(PageServiceV1.planTripPage().isIdTitle());
 	}
 	
 	
 	///////////////////////////////////  TEST PLAN YOUR TRIP -> LODGING SUB MENU LINK
+//	@Ignore
 	@Test
 	public void navigateTo_PlanYourTrip_Lodging_HP_Test() {
 		PageServiceV1.homePage().goTo();
+		
 		PageServiceV1.homePage().navigateToSubMenu(PlanTripPage.pageName, LodgingPage.pageName);
 		assertTrue(PageServiceV1.lodgingPage().isAt());
 	}
 
 	
 	/////////////////////////////////////////////  TEST RESORT AND SNOW MAIN MENU LINK
-	// TODO: CURRENTLY BROKEN
 //	@Ignore
 	@Test
 	public void navigateTo_ResortAndSnow_HP_Test() {
 		PageServiceV1.homePage().goTo();
 
 		PageServiceV1.homePage().navigateToListMenu(SnowPage.pageName);
-//		assertTrue(PageService.snowPage().isIdTitle());
 		assertTrue(PageServiceV1.snowPage().isAt());
+	}
+	
+	
+	/////////////////////////////////////////  TEST RESORT AND SNOW -> ALTA SUB MENU LINK
+	@Test
+	public void navigateTo_ResortAndSnow_Alta_HP_Test() {
+		PageServiceV1.homePage().goTo();
+		PageServiceV1.homePage().navigateToSubMenu(SnowPage.pageName, AltaPage.pageName);
+		
+		assertTrue(PageServiceV1.altaPage().isAt());
 	}
 
 	
 	/////////////////////////////////////////////  TEST STORIES MAIN MENU LINK
-	// TODO: Broken. It works until it calls the assert. It is not able to find the
-	// StoriesPage in the PageService.
 //	@Ignore
 	@Test
 	public void navigateTo_Stories_HP_Test() {
 		PageServiceV1.homePage().goTo();
 
 		PageServiceV1.homePage().navigateToListMenu(StoriesPage.pageName);
-		System.out.println("I am in stories test");
-//		assertTrue(PageService.storiesPage().isIdTitle());
 		assertTrue(PageServiceV1.storiesPage().isAt());
 	}
 }
