@@ -26,7 +26,17 @@ public class Browser {
 	public static void close() {
 		driver.close();
 	}
-
+	/////////////////////////////////////////////
+	
+	public static WebElement findElementByClassName(final String className) {
+		return driver.findElement(By.className(className));
+	}
+	
+	public static WebElement findElementByName(final String name) {
+		return driver.findElement(By.name(name));
+	}
+	
+	
 	/**
 	 * Finds all elements on a page that are associated with the given class name.
 	 * 
@@ -40,6 +50,7 @@ public class Browser {
 	public static List<WebElement> findElementsByLinkText(final String linkText){
 		return driver.findElements(By.linkText(linkText));
 	}
+	
 	
 
 	/**

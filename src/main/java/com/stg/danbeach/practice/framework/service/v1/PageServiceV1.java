@@ -1,6 +1,7 @@
 package com.stg.danbeach.practice.framework.service.v1;
 
 import com.stg.danbeach.practice.framework.page.AltaPage;
+import com.stg.danbeach.practice.framework.page.ActivitiesPage;
 import com.stg.danbeach.practice.framework.page.AllDealsPage;
 import com.stg.danbeach.practice.framework.page.DealsPage;
 import com.stg.danbeach.practice.framework.page.ExplorePage;
@@ -14,6 +15,10 @@ import com.stg.danbeach.practice.framework.page.SnowPage;
 import com.stg.danbeach.practice.framework.page.StoriesPage;
 
 public class PageServiceV1 {
+	
+	public static ActivitiesPage activitiesPage() {
+		return new ActivitiesPage();
+	}
 	
 	public static AltaPage altaPage() {
 		return new AltaPage();
