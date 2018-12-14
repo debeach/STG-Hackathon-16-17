@@ -1,5 +1,7 @@
 package com.stg.danbaech.practice.framework.page;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.List;
 
@@ -12,10 +14,12 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.stg.danbeach.practice.framework.browser.Browser;
 import com.stg.danbeach.practice.framework.browser.BrowserEnum;
+import com.stg.danbeach.practice.framework.page.ActivitiesPage;
+import com.stg.danbeach.practice.framework.service.v1.ActivitiesServiceV1;
 import com.stg.danbeach.practice.framework.service.v1.PageServiceV1;
 
 public class SkiUtah_ActivitiesPage_Chrome_2_45_Test {
-	
+
 	@BeforeClass
 	public static void setupTests() {
 
@@ -30,27 +34,20 @@ public class SkiUtah_ActivitiesPage_Chrome_2_45_Test {
 
 	@AfterClass
 	public static void tearDownTests() {
-//		Browser.close();
+		Browser.close();
 	}
-	///////////////////////////////////////////// 
-	
+	/////////////////////////////////////////////
+
 	@Test
 	public void searchForActivities_HappyPath_Test() {
-		// go to home page
+		// go to Activities page
 		PageServiceV1.activitiesPage().goTo();
 		
-		// set selector What
-		String what = "Transportation";
-		String resort = "Brighton";
-		String category = "Entertainment";
+		List<String> results = ActivitiesServiceV1.searchActivities(
+				ActivitiesPage.getActivityselect()
+				, ActivitiesPage.getResortselect()
+				, ActivitiesPage.getCategoryselect());
 		
-//		List<WebElement> select =  Browser.getDriver().findElements(By.tagName("select")));
-		Select whatSelect = new Select(Browser.getDriver().findElement(By.name("filter-category-select")));
-		whatSelect.selectByVisibleText(what);
-		System.out.println(whatSelect.getFirstSelectedOption().toString());
-		Select resortSelect = new Select(Browser.getDriver().findElement(By.name("filter-resort-select")));
-		resortSelect.selectByVisibleText(resort);
-		Select categorySelect = new Select(Browser.getDriver().findElement(By.name("filter-sub-category-select")));
-		categorySelect.selectByVisibleText(category);
+		assertTrue(PageServiceV1.activitiesPage().isSearch(results));
 	}
 }
